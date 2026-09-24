@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { Oswald } from "next/font/google";
 import { Inter } from "next/font/google";
+import Footer from "@/components/footer/Footer";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-[#0c0d10] text-white">
         <Navbar></Navbar>
         <main>{children}</main>
+        <Footer></Footer>
       </body>
     </html>
   );
