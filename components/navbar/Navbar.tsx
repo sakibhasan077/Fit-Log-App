@@ -15,7 +15,7 @@ const Navbar = () => {
   );
   return (
     <nav className="px-6 fixed top-0 w-full shadow-md bg-[#0c0d10] z-50 border-b-2 border-gray-700">
-      <div className="navbar bg-[#0c0d10] text-white">
+      <div className="navbar bg-[#0c0d10] text-white container mx-auto">
         <div className="navbar-start">
           <div className="dropdown mr-4">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden hover:bg-transparent border-0 ">
