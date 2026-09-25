@@ -1,7 +1,6 @@
+import LibraryDetailsButtons from "@/components/libraryDetailsButtons/LibraryDetailsButtons";
 import { ExerciseType } from "@/type/Type";
 import Image from "next/image";
-import CalendarIcon from "@/public/assets/calendarIcon.png";
-import SaveIcon from "@/public/assets/saveIcon.png";
 
 const LibraryDetails = async ({
   params,
@@ -13,7 +12,6 @@ const LibraryDetails = async ({
     `https://api.abcz.workers.dev/api/fitlog/${exerciseId}`,
   );
   const exercise: ExerciseType = await res.json();
-  console.log(exercise);
 
   return (
     <div className="mt-32 text-white min-h-90 container mx-auto font-inter">
@@ -98,15 +96,7 @@ const LibraryDetails = async ({
           </div>
 
           {/* Buttons  */}
-          <div className="mt-6 flex gap-4">
-            <button className="flex gap-2 items-center py-3 px-6 rounded-xl bg-[#CCFF00] text-sm text-[#0F1115] font-semibold">
-              <Image src={CalendarIcon} alt="Calendar Icon" width={50} height={50} className="w-4 h-4"></Image> Add to today's plan
-            </button>
-            <button className="flex gap-2 items-center py-3 px-6 rounded-xl border border-[#374151]  text-sm  font-semibold">
-              <Image src={SaveIcon} alt="Save Icon" width={50} height={50} className="w-4 h-4"></Image> Save for later
-
-            </button>
-          </div>
+          <LibraryDetailsButtons exercise = {exercise}></LibraryDetailsButtons>
         </div>
       </div>
     </div>

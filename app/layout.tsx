@@ -5,16 +5,17 @@ import Navbar from "@/components/navbar/Navbar";
 import { Oswald } from "next/font/google";
 import { Inter } from "next/font/google";
 import Footer from "@/components/footer/Footer";
+import ExerciseProvider from "@/context/ExerciseProvider";
 
 const oswald = Oswald({
   subsets: ["latin"],
-  variable: "--font-oswald"
-})
+  variable: "--font-oswald",
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-})
+});
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -38,9 +39,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${oswald.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0c0d10] text-white">
-        <Navbar></Navbar>
-        <main>{children}</main>
-        <Footer></Footer>
+        <ExerciseProvider>
+          <Navbar></Navbar>
+          <main>{children}</main>
+          <Footer></Footer>
+        </ExerciseProvider>
       </body>
     </html>
   );
