@@ -9,7 +9,7 @@ const Navbar = () => {
         <Link href={"/"}>Workouts</Link >
       </li>
       <li className="px-4 py-2 text-[#9CA3AF]">
-        <Link href={"/"}>My Plan</Link >
+        <Link href={"/myPlan"}>My Plan</Link >
       </li>
     </>
   );
@@ -38,7 +38,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={-1}
-              className="menu menu-sm dropdown-content bg-[#0c0d10] text-white border border-gray-800 p-4 rounded-box z-1 mt-3 w-52 shadow font-inter text-[14px] font-semibold"
+              className=" dropdown-content bg-[#0c0d10] text-white border border-gray-800 p-4 rounded-box z-1 mt-3 w-52 shadow font-inter text-[14px] font-semibold"
             >
               {links}
             </ul>
@@ -49,7 +49,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 font-inter text-[14px] font-semibold">
+          <ul className=" px-1 font-inter text-[14px] font-semibold">
             {links}
           </ul>
         </div>
