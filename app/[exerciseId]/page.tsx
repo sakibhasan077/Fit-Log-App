@@ -1,6 +1,7 @@
 import LibraryDetailsButtons from "@/components/libraryDetailsButtons/LibraryDetailsButtons";
 import { ExerciseType } from "@/type/Type";
 import Image from "next/image";
+import NotFound from "../not-found";
 
 const LibraryDetails = async ({
   params,
@@ -11,6 +12,9 @@ const LibraryDetails = async ({
   const res = await fetch(
     `https://api.abcz.workers.dev/api/fitlog/${exerciseId}`,
   );
+  if(!res.ok){
+    return <NotFound></NotFound>
+  }
   const exercise: ExerciseType = await res.json();
 
   return (
@@ -54,32 +58,60 @@ const LibraryDetails = async ({
             {exercise && (
               <ul className="border border-[#232834] bg-[#151922] rounded-2xl">
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">EQUIPMENT</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.equipment}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    EQUIPMENT
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.equipment}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">DIFFICULTY</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.difficulty}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    DIFFICULTY
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.difficulty}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">SETS</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.sets}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    SETS
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.sets}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">REPS</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.reps}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    REPS
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.reps}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">DURATION</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.duration}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    DURATION
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.duration}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6 border-b border-[#232834] ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">CALORIES</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.caloriesBurned}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    CALORIES
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.caloriesBurned}
+                  </span>
                 </li>
                 <li className="flex justify-between py-3.5 px-6  ">
-                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">RATING</span>
-                  <span className="text-sm text-[#E5E7EB] font-medium">{exercise.rating}</span>
+                  <span className="text-sm font-bold text-[#9CA3AF] tracking-[.6px]">
+                    RATING
+                  </span>
+                  <span className="text-sm text-[#E5E7EB] font-medium">
+                    {exercise.rating}
+                  </span>
                 </li>
               </ul>
             )}
