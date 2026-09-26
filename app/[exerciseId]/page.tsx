@@ -15,9 +15,9 @@ const LibraryDetails = async ({
 
   return (
     <div className="mt-32 text-white min-h-90 container mx-auto font-inter">
-      <div className="grid grid-cols-2 gap-14">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 px-5 sm:px-0">
         {/* Image box  */}
-        <div className="w-full relative h-full">
+        <div className="w-full relative h-full min-h-100">
           <Image
             src={exercise && exercise.image}
             alt={exercise && exercise.name}

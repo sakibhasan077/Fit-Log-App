@@ -5,7 +5,6 @@ import SavedPlanCart from "@/components/planCart/SavedPlanCart";
 import TodaysPlanCart from "@/components/planCart/TodaysPlanCart";
 import { ExerciseContext } from "@/context/ExerciseProvider";
 import { ExerciseType } from "@/type/Type";
-import { it } from "node:test";
 import { Suspense, useContext, useState } from "react";
 import WorkoutLoading from "./workoutLoading";
 
@@ -51,21 +50,21 @@ const MyPlan = () => {
   return (
     <div className="mt-30 mb-10 container mx-auto font-inter">
       {/* My Plan Head */}
-      <div>
+      <div className="mx-5 sm:mx-0">
         <h2 className="text-3xl font-bold font-oswald mb-2">MY PLAN</h2>
         <p className="text-sm text-[#8A92A0] mb-6 ">
           Cap of five lifts for today. Finish them, then load more.
         </p>
       </div>
       {/* Counter */}
-      <div className="p-6 pt-8 border-2 border-[#232732] rounded-2xl bg-[#13161D] mb-6 grid grid-cols-3">
-        <div className="border-r border-[#232732] pr-6">
+      <div className="p-6 pt-8 border-2 border-[#232732] rounded-2xl bg-[#13161D] mb-6 grid grid-cols-1 sm:grid-cols-3 mx-5 sm:mx-0">
+        <div className="pl-8 sm:pl-0  py-5 sm:py-0 text-center sm:text-start border-b sm:border-b-0 sm:border-r border-[#232732] pr-6">
           <span className="block mb-4 text-sm text-[#8A92A0]">Exercises</span>
           <span className="block text-4xl font-bold font-oswald leading-10 text-[#CCFF00]">
             {plan === "todaysPlan" ? todaysPlan.length : saved.length}
           </span>
         </div>
-        <div className="border-r border-[#232732] px-8">
+        <div className="  py-5 sm:py-0 text-center sm:text-start border-b sm:border-b-0 sm:border-r border-[#232732] px-8">
           <span className="block mb-4 text-sm text-[#8A92A0]">Minutes</span>
           <span className="block text-4xl font-bold font-oswald leading-10">
             {plan === "todaysPlan"
@@ -73,7 +72,7 @@ const MyPlan = () => {
               : saved.reduce((acc, item) => acc + item.duration, 0)}
           </span>
         </div>
-        <div className=" px-8">
+        <div className=" py-5 sm:py-0 text-center sm:text-start px-8">
           <span className="block mb-4 text-sm text-[#8A92A0]">Calories</span>
           <span className="block text-4xl font-bold font-oswald leading-10">
             {plan === "todaysPlan"
@@ -84,8 +83,8 @@ const MyPlan = () => {
       </div>
 
       {/* Show Data */}
-      <div>
-        <div className="flex justify-between items-center">
+      <div className="mx-5 sm:mx-0">
+        <div className="flex flex-col justify-center sm:flex-row gap-6 sm:justify-between items-center">
           {/* Tabs */}
           <div className="tabs tabs-box rounded-2xl border border-[#232732] bg-[#151921] p-1 text-white">
             <input
@@ -107,7 +106,7 @@ const MyPlan = () => {
           </div>
           {/* Sort By  */}
           <div className="flex gap-3 items-center">
-            <span className="min-w-15 text-[#8A92A0] text-sm">Sort By</span>
+            <span className="min-w-15 text-[#8A92A0] text-sm">Sort By:</span>
             <select
               defaultValue={sortBy}
               onChange={(e) =>

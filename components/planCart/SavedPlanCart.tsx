@@ -20,11 +20,11 @@ const SavedPlanCart = ({ exercise,setSaved,saved }: CartDataType) => {
     toast.success("Removed from Saved")
   }
   return (
-    <div className="grid grid-cols-2 justify-between items-center gap-4 rounded-2xl border border-gray-800 bg-[#15171e] p-4 font-inter">
+    <div className="grid grid-cols-1 md:grid-cols-2 justify-items-start md:justify-items-stretch items-center gap-4 rounded-2xl border border-gray-800 bg-[#15171e] p-4 font-inter">
       {/* Left Content and Image */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-baseline md:items-center gap-4 w-full">
         {/* Image */}
-        <div className="relative h-20 w-36  overflow-hidden rounded-xl">
+        <div className="relative h-60 md:h-20 w-full md:w-36  overflow-hidden rounded-xl">
           <Image
             src={exercise.image}
             alt={exercise.name}

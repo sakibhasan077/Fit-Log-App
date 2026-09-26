@@ -15,7 +15,7 @@ const Library = async () => {
       </div>
       {/* Library Body */}
       <div>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-5 sm:px-0">
           {data.map((cartData) => (
             <LibraryCart key={cartData.id} exercise={cartData}></LibraryCart>
           ))}

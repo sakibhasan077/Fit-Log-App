@@ -8,7 +8,9 @@ const Navbar = () => {
   return (
     <nav className="px-6 fixed top-0 w-full shadow-md bg-[#0c0d10] z-50 border-b-2 border-gray-700 ">
       <div className="navbar bg-[#0c0d10] text-white container mx-auto">
+        {/* Left */}
         <div className="navbar-start">
+          {/* DropDown */}
           <div className="dropdown mr-4">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden hover:bg-transparent border-0 ">
               <svg
@@ -35,11 +37,13 @@ const Navbar = () => {
               <NavbarLinks></NavbarLinks>
             </ul>
           </div>
-          <div className="flex items-center gap-2.5">
+          {/* Logo */}
+          <div className="flex items-center gap-1 sm:gap-2.5">
           <Image src={Logo} alt="Website Logo" height={100} width={100} className="h-7 w-7"></Image>
           <Link href={"/"} className=" text-xl text-[white] font-oswald font-black text-[18px]">FITLOG</Link>
           </div>
         </div>
+        {/* Right */}
         <div className="navbar-center hidden lg:flex">
           <ul className=" flex px-1 font-inter text-[14px] font-semibold">
             <NavbarLinks></NavbarLinks>

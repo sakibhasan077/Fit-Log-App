@@ -47,10 +47,10 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
 
   // Rendering
   return (
-    <div className="mt-6 flex gap-4">
+    <div className="mt-6 flex flex-col sm:flex-row gap-4 ">
       <button
         onClick={handleTodaysPlanBtn}
-        className={`flex gap-2 items-center py-3 px-6 rounded-xl bg-[#CCFF00] text-sm text-[#0F1115] font-semibold ${todayPlanStatus ? "cursor-no-drop bg-[#ccff00c4]": "cursor-pointer"}`}
+        className={`flex gap-2 items-center justify-center py-3 px-6 rounded-xl bg-[#CCFF00] text-sm text-[#0F1115] font-semibold ${todayPlanStatus ? "cursor-no-drop bg-[#ccff00c4]": "cursor-pointer"} text-center sm:text-start`}
       >
         <Image
           src={CalendarIcon}
@@ -63,7 +63,7 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
       </button>
       <button
         onClick={handleSavedBtn}
-        className={`flex gap-2 items-center py-3 px-6 rounded-xl border border-[#374151] text-sm font-semibold ${savedPlanStatus ? "cursor-no-drop bg-[rgba(255,255,255,0.1)]": "cursor-pointer"}`}
+        className={`flex gap-2 items-center justify-center  py-3 px-6 rounded-xl border border-[#374151] text-sm font-semibold ${savedPlanStatus ? "cursor-no-drop bg-[rgba(255,255,255,0.1)]": "cursor-pointer"}`}
       >
         <Image
           src={SaveIcon}
