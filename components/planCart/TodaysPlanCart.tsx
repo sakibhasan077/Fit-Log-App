@@ -4,6 +4,7 @@ import Clock from "@/public/assets/planClock.png";
 import Health from "@/public/assets/planHealth.png";
 import Star from "@/public/assets/planStar.png";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 interface CartDataType {
   exercise: ExerciseType;
@@ -12,9 +13,15 @@ interface CartDataType {
 }
 
 const TodaysPlanCart = ({ exercise,setTodaysPlan,todaysPlan }: CartDataType) => {
-  const handleButton = (getId:number) =>{
+  const handleMarkAsDoneButton = (getId:number) =>{
     const modifiedData = todaysPlan.filter(item => item.id !== getId);
     setTodaysPlan(modifiedData)
+    toast.success("Workout Logged - Nice Work")
+  }
+  const handleRemoveButton = (getId:number) =>{
+    const modifiedData = todaysPlan.filter(item => item.id !== getId);
+    setTodaysPlan(modifiedData)
+    toast.success("Remove from Today's Plan")
   }
   return (
     <div className="grid grid-cols-2 justify-between items-center gap-4 rounded-2xl border border-gray-800 bg-[#15171e] p-4 font-inter">
@@ -44,7 +51,7 @@ const TodaysPlanCart = ({ exercise,setTodaysPlan,todaysPlan }: CartDataType) => 
           <div className="mt-2 flex items-center gap-4 text-xs text-gray-300">
             <span className="flex items-center gap-1 text-[#D1D5DB]">
               <span>
-                <Image src={Star} width={50} height={50} alt="Clock Image" className="w-3.5 h-3.5"></Image>
+                <Image src={Clock} width={50} height={50} alt="Clock Image" className="w-3.5 h-3.5"></Image>
               </span>
               {exercise.duration} min
             </span>
@@ -55,7 +62,7 @@ const TodaysPlanCart = ({ exercise,setTodaysPlan,todaysPlan }: CartDataType) => 
             </span>
 
             <span className="flex items-center gap-1 text-[#D1D5DB]">
-              <span><Image src={Clock} width={50} height={50} alt="Clock Image" className="w-3.5 h-3.5"></Image></span>
+              <span><Image src={Star} width={50} height={50} alt="Clock Image" className="w-3.5 h-3.5"></Image></span>
               {exercise.rating}
             </span>
           </div>
@@ -72,14 +79,14 @@ const TodaysPlanCart = ({ exercise,setTodaysPlan,todaysPlan }: CartDataType) => 
         </button> </Link>
 
         <button
-          onClick={()=>handleButton(exercise.id)}
+          onClick={()=>handleMarkAsDoneButton(exercise.id)}
           className="rounded-full bg-[#CCFF00] px-5 py-2.5 text-xs font-semibold text-black transition hover:bg-lime-300"
         >
           ✓ Mark as Done
         </button>
 
         <button
-          onClick={()=>handleButton(exercise.id)}
+          onClick={()=>handleRemoveButton(exercise.id)}
           className="px-2 text-lg text-gray-500 transition hover:text-white"
         >
           ×

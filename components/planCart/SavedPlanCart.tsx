@@ -4,6 +4,8 @@ import Clock from "@/public/assets/planClock.png";
 import Health from "@/public/assets/planHealth.png";
 import Star from "@/public/assets/planStar.png";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface CartDataType {
   exercise: ExerciseType;
@@ -15,6 +17,7 @@ const SavedPlanCart = ({ exercise,setSaved,saved }: CartDataType) => {
   const handleButton = (getId:number) =>{
     const modifiedData = saved.filter(item => item.id !== getId);
     setSaved(modifiedData)
+    toast.success("Removed from Saved")
   }
   return (
     <div className="grid grid-cols-2 justify-between items-center gap-4 rounded-2xl border border-gray-800 bg-[#15171e] p-4 font-inter">

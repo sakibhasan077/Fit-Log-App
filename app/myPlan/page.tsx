@@ -6,7 +6,9 @@ import TodaysPlanCart from "@/components/planCart/TodaysPlanCart";
 import { ExerciseContext } from "@/context/ExerciseProvider";
 import { ExerciseType } from "@/type/Type";
 import { it } from "node:test";
-import { useContext, useState } from "react";
+import { Suspense, useContext, useState } from "react";
+import WorkoutLoading from "./workoutLoading";
+
 
 const MyPlan = () => {
   // Context
@@ -35,11 +37,11 @@ const MyPlan = () => {
     const myPlan = [...plan];
 
     if (sortBy === "duration") {
-      myPlan.sort((a, b) => b.duration - a.duration);
+      myPlan.sort((a, b) => a.duration - b.duration);
     } else if (sortBy === "calories") {
-      myPlan.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+      myPlan.sort((a, b) => a.caloriesBurned - b.caloriesBurned);
     } else {
-      myPlan.sort((a, b) => b.rating - a.rating);
+      myPlan.sort((a, b) => a.rating - b.rating);
     }
 
     return myPlan;
@@ -121,31 +123,33 @@ const MyPlan = () => {
           </div>
         </div>
         <div className="mt-6 flex flex-col gap-5">
-          {plan === "todaysPlan" ? (
-            todaysPlan.length === 0 ? (
+          <Suspense fallback={<WorkoutLoading></WorkoutLoading>}>
+            {plan === "todaysPlan" ? (
+              todaysPlan.length === 0 ? (
+                <NoDataCart></NoDataCart>
+              ) : (
+                sortTodaysPlan.map((item) => (
+                  <TodaysPlanCart
+                    key={item.id}
+                    exercise={item}
+                    setTodaysPlan={setTodaysPlan}
+                    todaysPlan={todaysPlan}
+                  ></TodaysPlanCart>
+                ))
+              )
+            ) : saved.length === 0 ? (
               <NoDataCart></NoDataCart>
             ) : (
-              sortTodaysPlan.map((item) => (
-                <TodaysPlanCart
+              sortSavedPlan.map((item) => (
+                <SavedPlanCart
                   key={item.id}
                   exercise={item}
-                  setTodaysPlan={setTodaysPlan}
-                  todaysPlan={todaysPlan}
-                ></TodaysPlanCart>
+                  saved={saved}
+                  setSaved={setSaved}
+                ></SavedPlanCart>
               ))
-            )
-          ) : saved.length === 0 ? (
-            <NoDataCart></NoDataCart>
-          ) : (
-            sortSavedPlan.map((item) => (
-              <SavedPlanCart
-                key={item.id}
-                exercise={item}
-                saved={saved}
-                setSaved={setSaved}
-              ></SavedPlanCart>
-            ))
-          )}
+            )}
+          </Suspense>
         </div>
       </div>
     </div>

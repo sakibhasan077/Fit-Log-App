@@ -3,8 +3,9 @@ import Image from "next/image";
 import CalendarIcon from "@/public/assets/calendarIcon.png";
 import SaveIcon from "@/public/assets/saveIcon.png";
 import { ExerciseType } from "@/type/Type";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ExerciseContext } from "@/context/ExerciseProvider";
+import { toast } from "react-toastify";
 
 interface ExerciseDataType {
   exercise: ExerciseType;
@@ -17,17 +18,29 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
   }
   const {todaysPlan,setTodaysPlan,saved,setSaved} = context;
 
+  // State
+  const [todayPlanStatus,setTodayPlanStatus] = useState(false)
+  const [savedPlanStatus,setSavedPlanStatus] = useState(false)
+
   // Handler Function
   const handleTodaysPlanBtn = () => {
     const uniqueData = todaysPlan.find(item=> item.id === exercise.id);
     if(!uniqueData){
       setTodaysPlan([...todaysPlan,exercise]);
+      setTodayPlanStatus(true);
+      toast.success("Added to Today's Plan")
+    }else{
+      toast.error("Already in your plan")
     }
   };
   const handleSavedBtn = () => {
     const uniqueData = saved.find(item=> item.id === exercise.id);
     if(!uniqueData){
       setSaved([...saved, exercise]);
+      setSavedPlanStatus(true);
+      toast.success("Added to Saved Plan")
+    }else{
+      toast.error("Already in your plan")
     }
 
   };
@@ -37,7 +50,7 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
     <div className="mt-6 flex gap-4">
       <button
         onClick={handleTodaysPlanBtn}
-        className="flex gap-2 items-center py-3 px-6 rounded-xl bg-[#CCFF00] text-sm text-[#0F1115] font-semibold"
+        className={`flex gap-2 items-center py-3 px-6 rounded-xl bg-[#CCFF00] text-sm text-[#0F1115] font-semibold ${todayPlanStatus ? "cursor-no-drop bg-[#ccff00c4]": "cursor-pointer"}`}
       >
         <Image
           src={CalendarIcon}
@@ -50,7 +63,7 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
       </button>
       <button
         onClick={handleSavedBtn}
-        className="flex gap-2 items-center py-3 px-6 rounded-xl border border-[#374151]  text-sm  font-semibold"
+        className={`flex gap-2 items-center py-3 px-6 rounded-xl border border-[#374151] text-sm font-semibold ${savedPlanStatus ? "cursor-no-drop bg-[rgba(255,255,255,0.1)]": "cursor-pointer"}`}
       >
         <Image
           src={SaveIcon}
