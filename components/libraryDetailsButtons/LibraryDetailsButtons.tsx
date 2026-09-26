@@ -31,8 +31,6 @@ const LibraryDetailsButtons = ({ exercise }: ExerciseDataType) => {
     }
 
   };
-  console.log(todaysPlan);
-  console.log(saved);
 
   // Rendering
   return (

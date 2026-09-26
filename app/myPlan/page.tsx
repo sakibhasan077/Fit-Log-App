@@ -1,5 +1,51 @@
+"use client";
+
+import NoDataCart from "@/components/planCart/NoDataCart";
+import SavedPlanCart from "@/components/planCart/SavedPlanCart";
+import TodaysPlanCart from "@/components/planCart/TodaysPlanCart";
+import { ExerciseContext } from "@/context/ExerciseProvider";
+import { ExerciseType } from "@/type/Type";
+import { it } from "node:test";
+import { useContext, useState } from "react";
 
 const MyPlan = () => {
+  // Context
+  const context = useContext(ExerciseContext);
+  if (!context) {
+    throw new Error("Not Found");
+  }
+  // State
+  const [plan, setPlan] = useState<"todaysPlan" | "savedPlan">("todaysPlan");
+  const [sortBy, setSortBy] = useState<"duration" | "calories" | "ratings">(
+    "duration",
+  );
+
+  const { todaysPlan, setTodaysPlan, saved, setSaved } = context;
+
+  // Handler Function
+  const handleTodaysPlanState = () => {
+    setPlan("todaysPlan");
+  };
+
+  const handleSavedPlanState = () => {
+    setPlan("savedPlan");
+  };
+
+  const sortPlan = (plan: ExerciseType[]) => {
+    const myPlan = [...plan];
+
+    if (sortBy === "duration") {
+      myPlan.sort((a, b) => b.duration - a.duration);
+    } else if (sortBy === "calories") {
+      myPlan.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+    } else {
+      myPlan.sort((a, b) => b.rating - a.rating);
+    }
+
+    return myPlan;
+  };
+  const sortTodaysPlan = sortPlan(todaysPlan);
+  const sortSavedPlan = sortPlan(saved);
   return (
     <div className="mt-30 mb-10 container mx-auto font-inter">
       {/* My Plan Head */}
@@ -14,19 +60,23 @@ const MyPlan = () => {
         <div className="border-r border-[#232732] pr-6">
           <span className="block mb-4 text-sm text-[#8A92A0]">Exercises</span>
           <span className="block text-4xl font-bold font-oswald leading-10 text-[#CCFF00]">
-            2
+            {plan === "todaysPlan" ? todaysPlan.length : saved.length}
           </span>
         </div>
         <div className="border-r border-[#232732] px-8">
           <span className="block mb-4 text-sm text-[#8A92A0]">Minutes</span>
           <span className="block text-4xl font-bold font-oswald leading-10">
-            23
+            {plan === "todaysPlan"
+              ? todaysPlan.reduce((acc, item) => acc + item.duration, 0)
+              : saved.reduce((acc, item) => acc + item.duration, 0)}
           </span>
         </div>
         <div className=" px-8">
           <span className="block mb-4 text-sm text-[#8A92A0]">Calories</span>
           <span className="block text-4xl font-bold font-oswald leading-10">
-            190
+            {plan === "todaysPlan"
+              ? todaysPlan.reduce((acc, item) => acc + item.caloriesBurned, 0)
+              : saved.reduce((acc, item) => acc + item.caloriesBurned, 0)}
           </span>
         </div>
       </div>
@@ -37,6 +87,7 @@ const MyPlan = () => {
           {/* Tabs */}
           <div className="tabs tabs-box rounded-2xl border border-[#232732] bg-[#151921] p-1 text-white">
             <input
+              onClick={handleTodaysPlanState}
               type="radio"
               name="my_tabs_1"
               className="tab rounded-xl border border-transparent text-white checked:border checked:border-[#2B303D] checked:bg-[#1F242D] min-w-25"
@@ -45,6 +96,7 @@ const MyPlan = () => {
             />
 
             <input
+              onClick={handleSavedPlanState}
               type="radio"
               name="my_tabs_1"
               className="tab rounded-xl border border-transparent text-white checked:border checked:border-[#2B303D] checked:bg-[#1F242D] min-w-25"
@@ -53,17 +105,47 @@ const MyPlan = () => {
           </div>
           {/* Sort By  */}
           <div className="flex gap-3 items-center">
-          <span className="min-w-15 text-[#8A92A0] text-sm">Sort By</span>
+            <span className="min-w-15 text-[#8A92A0] text-sm">Sort By</span>
             <select
-              defaultValue="Pick a color"
+              defaultValue={sortBy}
+              onChange={(e) =>
+                setSortBy(e.target.value as "duration" | "calories" | "ratings")
+              }
               className="select bg-[#13161D] border border-[#232732] rounded-2xl text-white"
             >
               {/* <option disabled={true}>Pick a color</option> */}
-              <option className="">Duration</option>
-              <option className="">Calories</option>
-              <option className="">Ratings</option>
+              <option value={"duration"}>Duration</option>
+              <option value={"calories"}>Calories</option>
+              <option value={"ratings"}>Ratings</option>
             </select>
           </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-5">
+          {plan === "todaysPlan" ? (
+            todaysPlan.length === 0 ? (
+              <NoDataCart></NoDataCart>
+            ) : (
+              sortTodaysPlan.map((item) => (
+                <TodaysPlanCart
+                  key={item.id}
+                  exercise={item}
+                  setTodaysPlan={setTodaysPlan}
+                  todaysPlan={todaysPlan}
+                ></TodaysPlanCart>
+              ))
+            )
+          ) : saved.length === 0 ? (
+            <NoDataCart></NoDataCart>
+          ) : (
+            sortSavedPlan.map((item) => (
+              <SavedPlanCart
+                key={item.id}
+                exercise={item}
+                saved={saved}
+                setSaved={setSaved}
+              ></SavedPlanCart>
+            ))
+          )}
         </div>
       </div>
     </div>
